@@ -24,7 +24,7 @@ public class SubjectRepositoryService implements ISubjectRepositoryService {
     private Provider<ModelMapper> modelMapperProvider;
 
     @Override
-    public Subject createSubject(String subjectName) {
+    public Subject addSubject(String subjectName) {
         ModelMapper modelMapper = modelMapperProvider.get();
         SubjectEntity subjectEntity = new SubjectEntity();
         subjectEntity.setName(subjectName);
@@ -34,7 +34,7 @@ public class SubjectRepositoryService implements ISubjectRepositoryService {
     }
 
     @Override
-    public Subject findSubjectById(long subjectId) throws SubjectNotFoundException {
+    public Subject getSubjectById(long subjectId) throws SubjectNotFoundException {
         String message = "No subject with subjectId: " + String.valueOf(subjectId) + " found.";
         ModelMapper modelMapper = modelMapperProvider.get();
 
@@ -45,7 +45,7 @@ public class SubjectRepositoryService implements ISubjectRepositoryService {
     }
 
     @Override
-    public List<Subject> findAllSubjects() {
+    public List<Subject> getAllSubjects() {
         List<SubjectEntity> subjectEntities = subjectRepository.findAll();
         List<Subject> subjects = mapToSubjectList(subjectEntities);
         return subjects;

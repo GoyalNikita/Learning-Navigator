@@ -33,14 +33,14 @@ public class ExamController {
     @PostMapping
     public ResponseEntity<Exam> createExam(@Valid @RequestBody CreateExamRequest createExamRequest)
             throws SubjectNotFoundException {
-        Exam exam = examService.createExam(createExamRequest);
+        Exam exam = examService.addExam(createExamRequest);
         return ResponseEntity.ok().body(exam);
     }
 
     // Endpoint to retieve all the exam list.
     @GetMapping
     public ResponseEntity<GetAllExamsResponse> getAllExams() {
-        List<Exam> exams = examService.findAllExams();
+        List<Exam> exams = examService.getAllExams();
         GetAllExamsResponse getAllExamsResponse = new GetAllExamsResponse(exams);
         return ResponseEntity.ok().body(getAllExamsResponse);
     }
@@ -48,7 +48,7 @@ public class ExamController {
     // Endpoint to retrieve the exam details by examId.
     @GetMapping("/{examId}")
     public ResponseEntity<Exam> getExamById(@PathVariable(value = "examId") long examId) throws ExamNotFoundException {
-        Exam exam = examService.findExamById(examId);
+        Exam exam = examService.getExamById(examId);
         return ResponseEntity.ok().body(exam);
     }
 

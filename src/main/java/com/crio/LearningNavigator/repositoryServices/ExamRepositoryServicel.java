@@ -30,7 +30,7 @@ public class ExamRepositoryServicel implements IExamRepositoryService {
     private Provider<ModelMapper> modelMapperProvider;
 
     @Override
-    public Exam createExam(long subjectId) throws SubjectNotFoundException {
+    public Exam addExam(long subjectId) throws SubjectNotFoundException {
         String message = "No subject with subjectId: " + String.valueOf(subjectId) + " found.";
         ModelMapper modelMapper = modelMapperProvider.get();
 
@@ -44,7 +44,7 @@ public class ExamRepositoryServicel implements IExamRepositoryService {
     }
 
     @Override
-    public Exam findExamById(long examId) throws ExamNotFoundException {
+    public Exam getExamById(long examId) throws ExamNotFoundException {
         String message = "No Exam with examId: " + String.valueOf(examId) + " found.";
         ModelMapper modelMapper = modelMapperProvider.get();
         ExamEntity examEntity = examRepository.findById(examId).orElseThrow(() -> new ExamNotFoundException(message));
@@ -53,7 +53,7 @@ public class ExamRepositoryServicel implements IExamRepositoryService {
     }
 
     @Override
-    public List<Exam> findAllExams() {
+    public List<Exam> getAllExams() {
         List<ExamEntity> examEntities = examRepository.findAll();
         List<Exam> exams = mapToExamList(examEntities);
         return exams;

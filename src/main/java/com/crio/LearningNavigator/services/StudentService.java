@@ -20,15 +20,15 @@ public class StudentService implements IStudentService {
     private IStudentRepositoryService studentRepositoryService;
 
     @Override
-    public Student registerStudent(RegisterStudentRequest registerStudentRequest) {
+    public Student addStudent(RegisterStudentRequest registerStudentRequest) {
         String studentName = registerStudentRequest.getStudentName();
-        Student student = studentRepositoryService.createStudent(studentName);
+        Student student = studentRepositoryService.addStudent(studentName);
         return student;
     }
 
     @Override
-    public Student findStudentById(long studentId) throws StudentNotFoundException {
-        Student student = studentRepositoryService.findStudentById(studentId);
+    public Student getStudentById(long studentId) throws StudentNotFoundException {
+        Student student = studentRepositoryService.getStudentById(studentId);
         return student;
     }
 
@@ -47,13 +47,13 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public List<Student> findAllStudents() {
-        List<Student> students = studentRepositoryService.findAllStudents();
+    public List<Student> getAllStudents() {
+        List<Student> students = studentRepositoryService.getAllStudents();
         return students;
     }
 
     @Override
-    public void deregisterStudent(long studentId) throws StudentNotFoundException {
+    public void deleteStudent(long studentId) throws StudentNotFoundException {
         studentRepositoryService.deleteStudent(studentId);
     }
 

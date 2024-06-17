@@ -40,7 +40,7 @@ public class TestStudentController {
         student.setId(1);
         student.setName("Nikita");
 
-        when(studentService.registerStudent(any(RegisterStudentRequest.class))).thenReturn(student);
+        when(studentService.addStudent(any(RegisterStudentRequest.class))).thenReturn(student);
 
         mockMvc.perform(post("/students")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -49,7 +49,7 @@ public class TestStudentController {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value("Nikita"));
 
-        verify(studentService, times(1)).registerStudent(any(RegisterStudentRequest.class));
+        verify(studentService, times(1)).addStudent(any(RegisterStudentRequest.class));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class TestStudentController {
         student.setId(1);
         student.setName("Nikita");
 
-        when(studentService.findStudentById(1)).thenReturn(student);
+        when(studentService.getStudentById(1)).thenReturn(student);
 
         mockMvc.perform(get("/students/{studentId}", 1))
                 .andExpect(status().isOk())

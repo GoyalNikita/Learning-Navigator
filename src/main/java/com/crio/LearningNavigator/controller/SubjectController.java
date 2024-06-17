@@ -31,7 +31,7 @@ public class SubjectController {
     // create a new subuject
     @PostMapping
     public ResponseEntity<Subject> createSubject(@Valid @RequestBody CreateSubjectRequest createSubjectRequest) {
-        Subject subject = subjectService.createSubject(createSubjectRequest);
+        Subject subject = subjectService.addSubject(createSubjectRequest);
         return ResponseEntity.ok().body(subject);
     }
 
@@ -39,14 +39,14 @@ public class SubjectController {
     @GetMapping("/{subjectId}")
     public ResponseEntity<Subject> getSubjectById(@PathVariable(value = "subjectId") long subjectId)
             throws SubjectNotFoundException {
-        Subject subject = subjectService.findSubjectById(subjectId);
+        Subject subject = subjectService.getSubjectById(subjectId);
         return ResponseEntity.ok().body(subject);
     }
 
     // retrieve all the subject lsits
     @GetMapping
     public ResponseEntity<GetAllSubjectsResponse> getAllSubjects() {
-        List<Subject> subjects = subjectService.findAllSubjects();
+        List<Subject> subjects = subjectService.getAllSubjects();
         GetAllSubjectsResponse getAllSubjectsResponse = new GetAllSubjectsResponse(subjects);
         return ResponseEntity.ok().body(getAllSubjectsResponse);
     }

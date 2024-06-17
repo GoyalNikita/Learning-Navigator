@@ -13,34 +13,6 @@ import com.crio.LearningNavigator.exceptions.SubjectNotFoundException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // @ExceptionHandler(StudentNotFoundException.class)
-    // ResponseEntity<String>
-    // handleStudentNotFoundException(StudentNotFoundException ex) {
-    // String message = ex.getMessage();
-    // return ResponseEntity.status(404).body(message);
-    // }
-
-    // @ExceptionHandler(SubjectNotFoundException.class)
-    // ResponseEntity<String>
-    // handleSubjectNotFoundException(SubjectNotFoundException ex) {
-    // String message = ex.getMessage();
-    // return ResponseEntity.status(404).body(message);
-    // }
-
-    // @ExceptionHandler(ExamNotFoundException.class)
-    // ResponseEntity<String> handleExamNotFoundException(ExamNotFoundException ex)
-    // {
-    // String message = ex.getMessage();
-    // return ResponseEntity.status(404).body(message);
-    // }
-
-    // @ExceptionHandler(SubjectNotEnrolledException.class)
-    // ResponseEntity<String>
-    // handleSubjectNotEnrolledException(SubjectNotEnrolledException ex) {
-    // String message = ex.getMessage();
-    // return ResponseEntity.status(403).body(message);
-    // }
-
     @ExceptionHandler({ StudentNotFoundException.class, SubjectNotFoundException.class, ExamNotFoundException.class })
     public ResponseEntity<String> handleNotFoundException(RuntimeException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());

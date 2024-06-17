@@ -37,7 +37,7 @@ public class TestExamController {
         exam.setId(1);
         exam.setSubject(subject);
 
-        when(examService.findExamById(1)).thenReturn(exam);
+        when(examService.getExamById(1)).thenReturn(exam);
 
         mockMvc.perform(get("/exams/{examId}", 1))
                 .andExpect(status().isOk())

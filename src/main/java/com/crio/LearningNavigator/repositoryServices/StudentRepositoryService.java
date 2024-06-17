@@ -39,7 +39,7 @@ public class StudentRepositoryService implements IStudentRepositoryService {
     private Provider<ModelMapper> modelMapperProvider;
 
     @Override
-    public Student createStudent(String studentName) {
+    public Student addStudent(String studentName) {
         ModelMapper modelMapper = modelMapperProvider.get();
         StudentEntity studentEntity = new StudentEntity();
         studentEntity.setName(studentName);
@@ -48,7 +48,7 @@ public class StudentRepositoryService implements IStudentRepositoryService {
     }
 
     @Override
-    public Student findStudentById(long studentId) throws StudentNotFoundException {
+    public Student getStudentById(long studentId) throws StudentNotFoundException {
         ModelMapper modelMapper = modelMapperProvider.get();
         Optional<StudentEntity> maybeStudentEntity = studentRepository.findById(studentId);
 
@@ -109,7 +109,7 @@ public class StudentRepositoryService implements IStudentRepositoryService {
     }
 
     @Override
-    public List<Student> findAllStudents() {
+    public List<Student> getAllStudents() {
         List<StudentEntity> studentEntities = studentRepository.findAll();
         List<Student> students = mapToStudentList(studentEntities);
         return students;

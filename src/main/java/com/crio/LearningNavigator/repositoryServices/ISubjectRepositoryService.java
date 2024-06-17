@@ -7,11 +7,11 @@ import com.crio.LearningNavigator.exceptions.SubjectNotFoundException;
 
 public interface ISubjectRepositoryService {
 
-    Subject createSubject(String subjectName);
+    Subject addSubject(String subjectName);
 
-    Subject findSubjectById(long subjectId) throws SubjectNotFoundException;
+    Subject getSubjectById(long subjectId) throws SubjectNotFoundException;
 
-    List<Subject> findAllSubjects();
+    List<Subject> getAllSubjects();
 
     void deleteSubject(long subjectId) throws SubjectNotFoundException;
 }

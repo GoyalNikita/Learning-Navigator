@@ -11,16 +11,18 @@ import com.crio.LearningNavigator.exchanges.RegisterStudentRequest;
 
 public interface IStudentService {
 
-    Student registerStudent(RegisterStudentRequest registerStudentRequest);
+    Student addStudent(RegisterStudentRequest registerStudentRequest);
 
-    Student findStudentById(long studentId) throws StudentNotFoundException;
+    Student getStudentById(long studentId) throws StudentNotFoundException;
 
-    Student enrollStudentInSubject(long studentId, long subjectId) throws StudentNotFoundException, SubjectNotFoundException;
+    Student enrollStudentInSubject(long studentId, long subjectId)
+            throws StudentNotFoundException, SubjectNotFoundException;
 
-    Student registerStudentForExam(long studentId, long examId) throws StudentNotFoundException, ExamNotFoundException, SubjectNotEnrolledException;
+    Student registerStudentForExam(long studentId, long examId)
+            throws StudentNotFoundException, ExamNotFoundException, SubjectNotEnrolledException;
 
-    List<Student> findAllStudents();
+    List<Student> getAllStudents();
 
-    void deregisterStudent(long studentId) throws StudentNotFoundException;
-    
+    void deleteStudent(long studentId) throws StudentNotFoundException;
+
 }

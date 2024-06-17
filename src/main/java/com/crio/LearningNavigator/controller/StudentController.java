@@ -35,14 +35,14 @@ public class StudentController {
     // Endpoint to add a new student.
     @PostMapping
     public ResponseEntity<Student> addStudent(@Valid @RequestBody RegisterStudentRequest registerStudentRequest) {
-        Student student = studentService.registerStudent(registerStudentRequest);
+        Student student = studentService.addStudent(registerStudentRequest);
         return ResponseEntity.ok().body(student);
     }
 
     // Retrieve all the students.
     @GetMapping
     public ResponseEntity<GetAllStudentsResponse> getAllStudents() {
-        List<Student> students = studentService.findAllStudents();
+        List<Student> students = studentService.getAllStudents();
         GetAllStudentsResponse getAllStudentsResponse = new GetAllStudentsResponse(students);
         return ResponseEntity.ok().body(getAllStudentsResponse);
     }
@@ -51,7 +51,7 @@ public class StudentController {
     @GetMapping("/{studentId}")
     public ResponseEntity<Student> getStudentById(@PathVariable(value = "studentId") long studentId)
             throws StudentNotFoundException {
-        Student student = studentService.findStudentById(studentId);
+        Student student = studentService.getStudentById(studentId);
         return ResponseEntity.ok().body(student);
     }
 
@@ -75,7 +75,7 @@ public class StudentController {
     @DeleteMapping("/{studentId}")
     public ResponseEntity<String> deleteStudent(@PathVariable long studentId) throws StudentNotFoundException {
         String message = "Successfully deleted student with ID: " + String.valueOf(studentId);
-        studentService.deregisterStudent(studentId);
+        studentService.deleteStudent(studentId);
         return ResponseEntity.ok().body(message);
     }
 }

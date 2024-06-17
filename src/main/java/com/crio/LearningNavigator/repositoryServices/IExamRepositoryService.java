@@ -7,11 +7,11 @@ import com.crio.LearningNavigator.exceptions.ExamNotFoundException;
 import com.crio.LearningNavigator.exceptions.SubjectNotFoundException;
 
 public interface IExamRepositoryService {
-    Exam createExam(long subjectId) throws SubjectNotFoundException;
+    Exam addExam(long subjectId) throws SubjectNotFoundException;
 
-    Exam findExamById(long examId) throws ExamNotFoundException;
+    Exam getExamById(long examId) throws ExamNotFoundException;
 
-    List<Exam> findAllExams();
+    List<Exam> getAllExams();
 
     void deleteExam(long examId) throws ExamNotFoundException;
 }

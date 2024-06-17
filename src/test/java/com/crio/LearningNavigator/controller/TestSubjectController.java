@@ -32,7 +32,7 @@ public class TestSubjectController {
         subject.setId(1);
         subject.setName("Computer Applications");
 
-        when(subjectService.findSubjectById(1)).thenReturn(subject);
+        when(subjectService.getSubjectById(1)).thenReturn(subject);
 
         mockMvc.perform(get("/subjects/{subjectId}", 1))
                 .andExpect(status().isOk())

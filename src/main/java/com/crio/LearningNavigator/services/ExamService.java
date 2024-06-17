@@ -18,21 +18,21 @@ public class ExamService implements IExamService {
     private IExamRepositoryService examRepositoryService;
 
     @Override
-    public Exam createExam(CreateExamRequest createExamRequest) throws SubjectNotFoundException {
+    public Exam addExam(CreateExamRequest createExamRequest) throws SubjectNotFoundException {
         long subjectId = createExamRequest.getSubjectId();
-        Exam exam = examRepositoryService.createExam(subjectId);
+        Exam exam = examRepositoryService.addExam(subjectId);
         return exam;
     }
 
     @Override
-    public Exam findExamById(long examId) throws ExamNotFoundException {
-        Exam exam = examRepositoryService.findExamById(examId);
+    public Exam getExamById(long examId) throws ExamNotFoundException {
+        Exam exam = examRepositoryService.getExamById(examId);
         return exam;
     }
 
     @Override
-    public List<Exam> findAllExams() {
-        List<Exam> exams = examRepositoryService.findAllExams();
+    public List<Exam> getAllExams() {
+        List<Exam> exams = examRepositoryService.getAllExams();
         return exams;
     }
 
@@ -40,5 +40,5 @@ public class ExamService implements IExamService {
     public void deleteExam(long examId) throws ExamNotFoundException {
         examRepositoryService.deleteExam(examId);
     }
-    
+
 }

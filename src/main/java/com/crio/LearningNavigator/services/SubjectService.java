@@ -17,21 +17,21 @@ public class SubjectService implements ISubjectService {
     private ISubjectRepositoryService subjectRepositoryService;
 
     @Override
-    public Subject createSubject(CreateSubjectRequest createSubjectRequest) {
+    public Subject addSubject(CreateSubjectRequest createSubjectRequest) {
         String subjectName = createSubjectRequest.getSubjectName();
-        Subject subject = subjectRepositoryService.createSubject(subjectName);
+        Subject subject = subjectRepositoryService.addSubject(subjectName);
         return subject;
     }
 
     @Override
-    public Subject findSubjectById(long subjectId) throws SubjectNotFoundException {
-        Subject subject = subjectRepositoryService.findSubjectById(subjectId);
+    public Subject getSubjectById(long subjectId) throws SubjectNotFoundException {
+        Subject subject = subjectRepositoryService.getSubjectById(subjectId);
         return subject;
     }
 
     @Override
-    public List<Subject> findAllSubjects() {
-        List<Subject> subjects = subjectRepositoryService.findAllSubjects();
+    public List<Subject> getAllSubjects() {
+        List<Subject> subjects = subjectRepositoryService.getAllSubjects();
         return subjects;
     }
 

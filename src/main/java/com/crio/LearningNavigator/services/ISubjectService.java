@@ -8,11 +8,11 @@ import com.crio.LearningNavigator.exchanges.CreateSubjectRequest;
 
 public interface ISubjectService {
 
-    Subject createSubject(CreateSubjectRequest createSubjectRequest);
+    Subject addSubject(CreateSubjectRequest createSubjectRequest);
 
-    Subject findSubjectById(long subjectId) throws SubjectNotFoundException;
+    Subject getSubjectById(long subjectId) throws SubjectNotFoundException;
 
-    List<Subject> findAllSubjects();
+    List<Subject> getAllSubjects();
 
     void deleteSubject(long subjectId) throws SubjectNotFoundException;
 

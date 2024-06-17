@@ -9,11 +9,11 @@ import com.crio.LearningNavigator.exchanges.CreateExamRequest;
 
 public interface IExamService {
 
-    Exam createExam(CreateExamRequest createExamRequest) throws SubjectNotFoundException;
+    Exam addExam(CreateExamRequest createExamRequest) throws SubjectNotFoundException;
 
-    Exam findExamById(long examId) throws ExamNotFoundException;
+    Exam getExamById(long examId) throws ExamNotFoundException;
 
-    List<Exam> findAllExams();
+    List<Exam> getAllExams();
 
     void deleteExam(long examId) throws ExamNotFoundException;
 

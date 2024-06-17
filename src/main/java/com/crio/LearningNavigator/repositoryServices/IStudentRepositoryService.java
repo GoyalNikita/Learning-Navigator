@@ -10,15 +10,17 @@ import com.crio.LearningNavigator.exceptions.SubjectNotFoundException;
 
 public interface IStudentRepositoryService {
 
-    Student createStudent(String studentName);
+    Student addStudent(String studentName);
 
-    Student findStudentById(long studentId) throws StudentNotFoundException;
+    Student getStudentById(long studentId) throws StudentNotFoundException;
 
-    Student enrollStudentInSubject(long studentId, long subjectId) throws StudentNotFoundException, SubjectNotFoundException;
+    Student enrollStudentInSubject(long studentId, long subjectId)
+            throws StudentNotFoundException, SubjectNotFoundException;
 
-    Student registerStudentForExam(long studentId, long examId) throws StudentNotFoundException, ExamNotFoundException, SubjectNotEnrolledException;
+    Student registerStudentForExam(long studentId, long examId)
+            throws StudentNotFoundException, ExamNotFoundException, SubjectNotEnrolledException;
 
-    List<Student> findAllStudents();
+    List<Student> getAllStudents();
 
     void deleteStudent(long studentId) throws StudentNotFoundException;
 }
