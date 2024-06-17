@@ -31,11 +31,12 @@ public class ExamRepositoryServicel implements IExamRepositoryService {
 
     @Override
     public Exam createExam(long subjectId) throws SubjectNotFoundException {
-        String message = "Could not find subject with ID: " + String.valueOf(subjectId);
+        String message = "No subject with subjectId: " + String.valueOf(subjectId) + " found.";
         ModelMapper modelMapper = modelMapperProvider.get();
 
         ExamEntity examEntity = new ExamEntity();
-        SubjectEntity subjectEntity = subjectRepository.findById(subjectId).orElseThrow(() -> new SubjectNotFoundException(message));
+        SubjectEntity subjectEntity = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new SubjectNotFoundException(message));
 
         examEntity.setSubjectEntity(subjectEntity);
         Exam exam = modelMapper.map(examRepository.save(examEntity), Exam.class);
@@ -44,7 +45,7 @@ public class ExamRepositoryServicel implements IExamRepositoryService {
 
     @Override
     public Exam findExamById(long examId) throws ExamNotFoundException {
-        String message = "Could not find exam with ID: " + String.valueOf(examId);
+        String message = "No Exam with examId: " + String.valueOf(examId) + " found.";
         ModelMapper modelMapper = modelMapperProvider.get();
         ExamEntity examEntity = examRepository.findById(examId).orElseThrow(() -> new ExamNotFoundException(message));
         Exam exam = modelMapper.map(examEntity, Exam.class);
@@ -60,20 +61,20 @@ public class ExamRepositoryServicel implements IExamRepositoryService {
 
     @Override
     public void deleteExam(long examId) throws ExamNotFoundException {
-        String message = "Could not find exam with ID: " + String.valueOf(examId);
+        String message = "No Exam with examId: " + String.valueOf(examId) + " found.";
         ExamEntity examEntity = examRepository.findById(examId).orElseThrow(() -> new ExamNotFoundException(message));
         examRepository.delete(examEntity);
     }
-    
+
     private List<Exam> mapToExamList(List<ExamEntity> examEntities) {
         List<Exam> exams = new ArrayList<>();
         ModelMapper modelMapper = modelMapperProvider.get();
 
-        for(ExamEntity examEntity : examEntities) {
+        for (ExamEntity examEntity : examEntities) {
             Exam exam = modelMapper.map(examEntity, Exam.class);
             exams.add(exam);
         }
-        
+
         return exams;
     }
 }

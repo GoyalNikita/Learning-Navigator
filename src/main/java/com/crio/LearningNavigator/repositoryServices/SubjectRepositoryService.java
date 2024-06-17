@@ -35,7 +35,7 @@ public class SubjectRepositoryService implements ISubjectRepositoryService {
 
     @Override
     public Subject findSubjectById(long subjectId) throws SubjectNotFoundException {
-        String message = "Could not find subject with ID: " + String.valueOf(subjectId);
+        String message = "No subject with subjectId: " + String.valueOf(subjectId) + " found.";
         ModelMapper modelMapper = modelMapperProvider.get();
 
         SubjectEntity subjectEntity = subjectRepository.findById(subjectId)
@@ -53,7 +53,7 @@ public class SubjectRepositoryService implements ISubjectRepositoryService {
 
     @Override
     public void deleteSubject(long subjectId) throws SubjectNotFoundException {
-        String message = "Could not find subject with ID: " + String.valueOf(subjectId);
+        String message = "No subject with subjectId: " + String.valueOf(subjectId) + " found.";
         SubjectEntity subjectEntity = subjectRepository.findById(subjectId)
                 .orElseThrow(() -> new SubjectNotFoundException(message));
         subjectRepository.delete(subjectEntity);

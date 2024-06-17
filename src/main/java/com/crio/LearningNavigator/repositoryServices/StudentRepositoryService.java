@@ -51,15 +51,13 @@ public class StudentRepositoryService implements IStudentRepositoryService {
     public Student findStudentById(long studentId) throws StudentNotFoundException {
         ModelMapper modelMapper = modelMapperProvider.get();
         Optional<StudentEntity> maybeStudentEntity = studentRepository.findById(studentId);
-        
-        if(maybeStudentEntity.isPresent()) {
+
+        if (maybeStudentEntity.isPresent()) {
             StudentEntity studentEntity = maybeStudentEntity.get();
-            // System.out.println("Enrolled Subjects: " + studentEntity.getEnrolledSubjects());
             Student student = modelMapper.map(studentEntity, Student.class);
             return student;
-        }
-        else {
-            String message = "Could not find student with ID: " + String.valueOf(studentId);
+        } else {
+            String message = "No student with studentId: " + String.valueOf(studentId) + " found.";
             throw new StudentNotFoundException(message);
         }
     }
@@ -68,17 +66,19 @@ public class StudentRepositoryService implements IStudentRepositoryService {
     public Student enrollStudentInSubject(long studentId, long subjectId)
             throws StudentNotFoundException, SubjectNotFoundException {
         ModelMapper modelMapper = modelMapperProvider.get();
-        String studentNotFoundMessage = "Could not find student with ID: " + String.valueOf(studentId);
-        String subjectNotFoundMessage = "Could not find subject with ID: " + String.valueOf(subjectId);
+        String studentNotFoundMessage = "No student with studentId: " + String.valueOf(studentId) + " found.";
+        String subjectNotFoundMessage = "No subject with sunjectId: " + String.valueOf(subjectId) + " found.";
 
-        StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException(studentNotFoundMessage));
-        SubjectEntity subjectEntity = subjectRepository.findById(subjectId).orElseThrow(() -> new SubjectNotFoundException(subjectNotFoundMessage));
+        StudentEntity studentEntity = studentRepository.findById(studentId)
+                .orElseThrow(() -> new StudentNotFoundException(studentNotFoundMessage));
+        SubjectEntity subjectEntity = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new SubjectNotFoundException(subjectNotFoundMessage));
 
         Set<SubjectEntity> enrolledSubjects = studentEntity.getEnrolledSubjects();
         enrolledSubjects.add(subjectEntity);
 
         Student student = modelMapper.map(studentRepository.save(studentEntity), Student.class);
-        
+
         return student;
     }
 
@@ -86,22 +86,24 @@ public class StudentRepositoryService implements IStudentRepositoryService {
     public Student registerStudentForExam(long studentId, long examId)
             throws StudentNotFoundException, ExamNotFoundException, SubjectNotEnrolledException {
         ModelMapper modelMapper = modelMapperProvider.get();
-        String studentNotFoundMessage = "Could not find student with ID: " + String.valueOf(studentId);
-        String examNotFoundMessage = "Could not find exam with ID: " + String.valueOf(examId);
+        String studentNotFoundMessage = "No student with studentId: " + String.valueOf(studentId) + " found.";
+        String examNotFoundMessage = "No exam with examId: " + String.valueOf(examId) + " found.";
 
-        StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException(studentNotFoundMessage));
-        ExamEntity examEntity = examRepository.findById(examId).orElseThrow(() -> new ExamNotFoundException(examNotFoundMessage));
+        StudentEntity studentEntity = studentRepository.findById(studentId)
+                .orElseThrow(() -> new StudentNotFoundException(studentNotFoundMessage));
+        ExamEntity examEntity = examRepository.findById(examId)
+                .orElseThrow(() -> new ExamNotFoundException(examNotFoundMessage));
         SubjectEntity subjectEntity = examEntity.getSubjectEntity();
 
-        String subjectNotEnrolledMessage = "Student has not enrolled in subject with ID: " + String.valueOf(subjectEntity.getId());
+        String subjectNotEnrolledMessage = "The Student has not yet enrolled in subject with ID: "
+                + String.valueOf(subjectEntity.getId());
 
-        if(isSubjectEnrolled(studentEntity, subjectEntity)) {
+        if (isSubjectEnrolled(studentEntity, subjectEntity)) {
             Set<ExamEntity> registeredExams = studentEntity.getRegisteredExams();
             registeredExams.add(examEntity);
             Student student = modelMapper.map(studentRepository.save(studentEntity), Student.class);
             return student;
-        }
-        else {
+        } else {
             throw new SubjectNotEnrolledException(subjectNotEnrolledMessage);
         }
     }
@@ -115,8 +117,9 @@ public class StudentRepositoryService implements IStudentRepositoryService {
 
     @Override
     public void deleteStudent(long studentId) throws StudentNotFoundException {
-        String message = "Could not find student with ID: " + String.valueOf(studentId);
-        StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException(message));
+        String message = "No student with studentId: " + String.valueOf(studentId) + " found.";
+        StudentEntity studentEntity = studentRepository.findById(studentId)
+                .orElseThrow(() -> new StudentNotFoundException(message));
         studentRepository.delete(studentEntity);
     }
 
@@ -124,7 +127,7 @@ public class StudentRepositoryService implements IStudentRepositoryService {
         List<Student> students = new ArrayList<>();
         ModelMapper modelMapper = modelMapperProvider.get();
 
-        for(StudentEntity studentEntity : studentEntities) {
+        for (StudentEntity studentEntity : studentEntities) {
             Student student = modelMapper.map(studentEntity, Student.class);
             students.add(student);
         }
@@ -135,9 +138,9 @@ public class StudentRepositoryService implements IStudentRepositoryService {
     private boolean isSubjectEnrolled(StudentEntity studentEntity, SubjectEntity subjectEntity) {
         Set<SubjectEntity> enrolledSubjects = studentEntity.getEnrolledSubjects();
 
-        if(enrolledSubjects.contains(subjectEntity))
+        if (enrolledSubjects.contains(subjectEntity))
             return true;
         return false;
     }
-    
+
 }
